@@ -1,0 +1,16 @@
+!04/17/1994 1994107    0.83 :
+*
+* <PLEASE DO NOT ERASE OR EDIT THIS FILE>
+*
+#TEST12   test                   0.00   0 testing 1 2 3                                                                                                                                                    0   0
+ LUNCH    lunch                  0.13+  1                                                                                                                                                                  2   0
+ NEW      New                    0.70+  1                                                                                                                                                                  2   0
+ TESTING  testing                0.00   0                                                                                                                                                                  0   1
+ ONE      testing.one            0.00   0                                                                                                                                                       ONE        0   0
+ TWO2     testing.two            0.00   0                                                                                                                                                       NEW        0   0
+#FOUR     4                      0.00   0                                                                                                                                                                  0   0
+ FIVE     5                      0.00   0                                                                                                                                                                  0   0
+ ONE      new.one                0.00-  0                                                                                                                                                                  1   0
+ TWO      new.two                0.13   1                                                                                                                                                       LUNCH      0   0
+ TWO      one                    0.70   1                                                                                                                                                       NEW        0   0
+ ONE      one                    0.00   0                                                                                                                                                       LUNCH      0   0

@@ -1,0 +1,479 @@
+#include <os2.h>
+#include "timetrac.h"
+#include "timedlg.h"                   /* see TIMETRAC.DLG                    */
+
+/******************************************************************************/
+/* Standard menu bar definition for client window.                            */
+/******************************************************************************/
+
+
+MENU   idFrameWindow
+  {
+   SUBMENU "~File",                IDM_FILE
+    {
+     MENUITEM "~Start  \tCtrl-S",   IDM_START
+     MENUITEM "S~top   \tCtrl-T",   IDM_STOP
+     MENUITEM SEPARATOR
+     MENUITEM "~Edit... \tCtrl-E",  IDM_EDIT
+     MENUITEM "~Delete  \tCtrl-D",  IDM_DELETE
+     MENUITEM "~Add...  \tCtrl-A",  IDM_ADD
+     MENUITEM SEPARATOR
+     MENUITEM "Collapse \tCtrl-M",  IDM_MAIN
+     MENUITEM SEPARATOR
+     MENUITEM "Sa~ve data \tCtrl-V",   IDM_SAVE
+     MENUITEM "~Change data... \tCtrl-C", IDM_REPEDIT
+     MENUITEM "Report... \tF9",      IDM_REPORT
+     MENUITEM SEPARATOR
+    }
+   SUBMENU "~Options",             IDM_OPTIONS
+    {
+     MENUITEM "Refresh   \tF2",    IDM_REFRESH
+     MENUITEM "~Reset     \tAlt-R", IDM_RESET
+     MENUITEM SEPARATOR
+     SUBMENU  "Sort",              IDM_SORT
+      {
+       MENUITEM "No sort",                   IDM_SORT_NONE
+       MENUITEM SEPARATOR
+       MENUITEM "Ascending by Code",         IDM_SORT_CODE_A
+       MENUITEM "Descending by Code",        IDM_SORT_CODE_D
+       MENUITEM "Ascending by Description",  IDM_SORT_DESC_A
+       MENUITEM "Descending by Description", IDM_SORT_DESC_D
+       MENUITEM "Ascending by Time",         IDM_SORT_TIME_A
+       MENUITEM "Descending by Time",        IDM_SORT_TIME_D
+       MENUITEM "Ascending by Percent",      IDM_SORT_PERC_A
+       MENUITEM "Descending by Percent",     IDM_SORT_PERC_D
+       MENUITEM "Ascending by Count",        IDM_SORT_COUNT_A
+       MENUITEM "Descending by Count",       IDM_SORT_COUNT_D
+       MENUITEM SEPARATOR
+       SUBMENU  "Secondary sort",            IDM_SEC_SORT
+        {
+/*       MENUITEM "No sort",                   IDM_SECSORT_NONE     */
+/*       MENUITEM SEPARATOR                                         */
+         MENUITEM "Ascending by Code",         IDM_SECSORT_CODE_A
+         MENUITEM "Descending by Code",        IDM_SECSORT_CODE_D
+         MENUITEM "Ascending by Description",  IDM_SECSORT_DESC_A
+         MENUITEM "Descending by Description", IDM_SECSORT_DESC_D
+         MENUITEM "Ascending by Time",         IDM_SECSORT_TIME_A
+         MENUITEM "Descending by Time",        IDM_SECSORT_TIME_D
+         MENUITEM "Ascending by Percent",      IDM_SECSORT_PERC_A
+         MENUITEM "Descending by Percent",     IDM_SECSORT_PERC_D
+         MENUITEM "Ascending by Count",        IDM_SECSORT_COUNT_A
+         MENUITEM "Descending by Count",       IDM_SECSORT_COUNT_D
+        }
+      }
+     MENUITEM SEPARATOR
+     MENUITEM "Expand All",            IDM_EXPANDALL
+     MENUITEM "Collapse All",          IDM_COLLAPSEALL
+     MENUITEM SEPARATOR
+     MENUITEM "~Settings... \tAlt-S",  IDM_SETTINGS
+     MENUITEM "~Fonts...    \tCtrl-F", IDM_FONT
+     MENUITEM "Save Settings",         IDM_SAVESETTINGS
+/*   MENUITEM "Test", IDM_TEST */
+    }
+   SUBMENU "~Help",                      IDM_HELP
+    {
+     MENUITEM    "Help Index",          SC_HELPINDEX,    MIS_SYSCOMMAND
+     MENUITEM    "General Help",        SC_HELPEXTENDED, MIS_SYSCOMMAND
+     MENUITEM    "Using Help",          IDM_USINGHELP
+     MENUITEM    "Keys Help",           SC_HELPKEYS,     MIS_SYSCOMMAND
+     MENUITEM SEPARATOR
+     MENUITEM    "Product Information", IDM_HELPPRODINFO
+    }
+  }
+
+MENU   idPopup
+  {
+    MENUITEM "~Start",       IDM_START
+    MENUITEM "S~top",        IDM_STOP
+    MENUITEM SEPARATOR
+    MENUITEM "~Edit...",     IDM_EDIT
+    MENUITEM "~Delete",      IDM_DELETE
+    MENUITEM "~Add...",      IDM_ADD
+    MENUITEM "~Reset",       IDM_RESETIT     /* 1.98 */
+    MENUITEM SEPARATOR
+    MENUITEM "E~x/Include",  IDM_EXCLUDE
+    MENUITEM "H~ide/Show",   IDM_HIDE
+    MENUITEM "Tra~nsfer...", IDM_TRANSFER
+    MENUITEM SEPARATOR
+    MENUITEM "Collapse",     IDM_MAIN
+  }
+
+/******************************************************************************/
+/* Standard accelerator table for menu bar choices.                           */
+/******************************************************************************/
+
+ACCELTABLE idFrameWindow
+ {
+  "a",     IDM_ADD,      CHAR,       CONTROL
+  "c",     IDM_REPEDIT,  CHAR,       CONTROL
+  "d",     IDM_DELETE,   CHAR,       CONTROL
+  "e",     IDM_EDIT,     CHAR,       CONTROL
+  "f",     IDM_FONT,     CHAR,       CONTROL
+  "i",     IDM_HIDE,     CHAR,       CONTROL
+  "m",     IDM_MAIN,     CHAR,       CONTROL
+  "n",     IDM_TRANSFER, CHAR,       CONTROL    /* 1.98 */
+  "r",     IDM_RESETIT,  CHAR,       CONTROL    /* 1.98 */
+  "s",     IDM_START,    CHAR,       CONTROL
+  "t",     IDM_STOP,     CHAR,       CONTROL
+  "u",     IDM_COMMAND,  CHAR,       CONTROL
+  "v",     IDM_SAVE,     CHAR,       CONTROL
+  "z",     IDM_DEBUG,    CHAR,       CONTROL
+  "r",     IDM_RESET,    CHAR,       ALT
+  "s",     IDM_SETTINGS, CHAR,       ALT
+  VK_F2,   IDM_REFRESH,  VIRTUALKEY
+  VK_F9,   IDM_REPORT,   VIRTUALKEY
+  VK_F4,   IDM_EXIT,     VIRTUALKEY, ALT
+  "1",     IDM_CTRL_1,   CHAR,       CONTROL
+  "2",     IDM_CTRL_2,   CHAR,       CONTROL
+  "3",     IDM_CTRL_3,   CHAR,       CONTROL
+  "4",     IDM_CTRL_4,   CHAR,       CONTROL
+  "5",     IDM_CTRL_5,   CHAR,       CONTROL
+  "6",     IDM_CTRL_6,   CHAR,       CONTROL
+  "7",     IDM_CTRL_7,   CHAR,       CONTROL
+  "8",     IDM_CTRL_8,   CHAR,       CONTROL
+  "9",     IDM_CTRL_9,   CHAR,       CONTROL
+ }
+
+/******************************************************************************/
+/* String table for most text displayed in application controls. Use          */
+/* WinLoadString in window procedure to retrieve these.                       */
+/******************************************************************************/
+
+STRINGTABLE
+  {
+   IDS_TITLEBAR    "TIMETRAC: PM Activity Time Tracker"
+   IDS_PROGRAM     "TIMETRAC"
+   IDS_HELPTITLE   "TIMETRAC Help"
+   IDS_HELPNAME    "TIMETRAC.HLP"
+   IDS_ININAME     "TIMETRAC.INI"
+   IDS_OUTFILE     "TIMETRAC.LST"
+   IDS_BACKFILE    "TIMETRAC.0ST"
+   IDS_REPORTFILE  "TIMETRAC.TT"
+   IDS_BACKREPFILE "TIMETRAC.0TT"
+   IDS_COMMENTFILE "TIMETRAC.CM"
+   IDS_BACKCOMFILE "TIMETRAC.0CM"
+   IDS_EXITPROMPT  "Are you sure you want to quit?"
+   IDS_TITLEEXIT   "Exit"
+   IDS_LISTHDR     "  Activity   X Description             Time     %   #  Comments"
+   IDS_LISTTITLE   "Select Activity Code"
+   IDS_SELECT      "No item selected. Click on left mouse button to select an activity code."
+   IDS_STATUSOFF   "Stopped."
+   IDS_STATUSON    "Tracking"
+   IDS_DELETE      "Delete Activity Code"
+   IDS_DELETEMSG   "Are you sure you want to delete"
+   IDS_RESET       "Reset Activity Times"
+   IDS_RESETMSG    "All activity times and counters will be set to 0. Are you sure you want to reset?"
+   IDS_RESETWARN   "Activity times were not reset to 0 because this is still the same day."
+   IDS_CODENULL    "The activity code cannot be blank. Enter 8 characters or less unique code."
+   IDS_DESCNULL    "The description cannot be blank. Enter 20 characters or less description."
+   IDS_MEMERROR    "Severe error allocating memory block."
+   IDS_GETERROR    "Severe error reading TIMETRAC.LST control file. Return code:"
+   IDS_PUTERROR    "Severe error writing to TIMETRAC.LST control file. Return code:"
+   IDS_SAVEERROR   "Severe error saving output to file. Output not saved!"
+   IDS_ERRTITLE    "TIMETRAC Error"
+   IDS_ADD         "Add Activity Code"
+   IDS_ADDMSG      "Add failed. Maximum number of activity codes reached."
+   IDS_WARNADD     "No activity codes found. To add a new activity code, select Add under File."
+   IDS_ALARM       "TIMETRAC Alarm Reminder"
+   IDS_ALARMMSG    "Do you want to stop tracking current activity as it has been over"
+   IDS_MINUTES     "minutes"
+   IDS_HOURS       "hours"
+   IDS_TOTAL       "Total"
+   IDS_SAVEMSG     "Report saved successfully as requested."
+   IDS_SAVE        "Save Report"
+   IDS_OPTIONS     "~Options"
+   IDS_CONFIRM     "~Confirmations"
+   IDS_TIME        "~Time"
+   IDS_DATE        "Dat~e"
+   IDS_REPORT      "~Report"
+   IDS_ALARMSET    "~Alarm"
+   IDS_USEREXIT    "User E~xit"
+   IDS_NONE        "<none>"
+   IDS_SETTINGS    "TIMETRAC Settings"
+   IDS_CREATE      "Create Data"
+   IDS_CREATEWARN  "Data for the same date already exists. Do you want to overwrite?"
+   IDS_GET         "Get Data"
+   IDS_GETWARN     "Data for date given does not exist in report file. Do want to create it?"
+   IDS_HOTKEY      "Quick Key"
+   IDS_HOTKEYWARN  "Ctrl-# already used as a quick key for another activity code."
+   IDS_PARENT      "Parent"
+   IDS_PARENTWARN1 "Activity cannot be a parent because it is a sub-activity."
+   IDS_PARENTWARN2 "Activity cannot have parent because it has a sub-activities."
+   IDS_PARENTWARN3 "Parent cannot be the activity. Please select a different parent."
+   IDS_ACTCODE     "Activity Code"
+   IDS_ACTCODEWARN "Activity code already used, must be unique."
+   IDS_TRAN        "Transfer"
+   IDS_TRANWARN    "You cannot transfer to an activity code which has sub-activities."
+   IDS_RESETERROR  "You cannot reset an activity code which has sub-activities."
+   IDS_DELETEWARN  "Cannot delete this activity because it has sub-activities."
+   IDS_CURRENT     "Current"
+   IDS_MAXTIMEWARN "has a time greater than 1000. Time reduced to 999.99."
+   IDS_SAVESETWARN "Settings saved. Activity being tracked (if any) was stopped."
+  }
+
+/***************************************************************************/
+/* Help table definitions. HELPTABLE relates to all top-level windows and  */
+/* HELPSUBTABLE for child window help.                                     */
+/***************************************************************************/
+
+HELPTABLE IDH_TABLE_MAIN
+  {
+   HELPITEM idFrameWindow,  IDH_SUBTABLE_MAIN,       IDH_MAIN
+   HELPITEM ID_NBWINDOW,    IDH_SUBTABLE_NOTEBOOK,   IDH_SETTINGS
+   HELPITEM IDD_EDIT,       IDH_SUBTABLE_EDIT,       IDH_EDIT
+   HELPITEM IDD_ADD,        IDH_SUBTABLE_ADD,        IDH_ADD
+   HELPITEM IDD_REPORTLIST, IDH_SUBTABLE_REPORTLIST, IDH_REPORTLIST
+   HELPITEM IDD_REPORT,     IDH_SUBTABLE_REPORT,     IDH_REPORT
+   HELPITEM IDD_REPORTEDIT, IDH_SUBTABLE_REPORTEDIT, IDH_REPORTEDIT
+   HELPITEM IDD_ALARMMSG,   IDH_SUBTABLE_ALARMMSG,   IDH_ALARMMSG
+   HELPITEM IDD_ALARMCHG,   IDH_SUBTABLE_ALARMCHG,   IDH_ALARMCHG
+   HELPITEM IDD_SAVEREP,    IDH_SUBTABLE_SAVEREP,    IDH_SAVEREP
+   HELPITEM IDD_TRANSFER,   IDH_SUBTABLE_TRANSFER,   IDH_TRANSFER
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_MAIN
+  {
+   HELPSUBITEM IDM_FILE,         IDH_MENU_FILE
+   HELPSUBITEM IDM_REPORT,       IDH_FILE_REPORT
+   HELPSUBITEM IDM_SAVE,         IDH_FILE_SAVE
+   HELPSUBITEM IDM_OPTIONS,      IDH_MENU_OPTIONS,
+   HELPSUBITEM IDM_REFRESH,      IDH_OPTIONS_REFRESH
+   HELPSUBITEM IDM_SETTINGS,     IDH_OPTIONS_SETTINGS
+   HELPSUBITEM IDM_RESET,        IDH_OPTIONS_RESET
+   HELPSUBITEM IDM_SORT,         IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_COLLAPSEALL,  IDH_COLLAPSEALL
+   HELPSUBITEM IDM_EXPANDALL,    IDH_EXPANDALL
+   HELPSUBITEM IDM_COMMAND,      IDH_FILE_COMMAND
+   HELPSUBITEM IDM_FONT,         IDH_FONT
+   HELPSUBITEM IDM_SAVESETTINGS, IDH_SAVESETTINGS
+
+   HELPSUBITEM IDM_SORT_NONE,    IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_CODE_A,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_CODE_D,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_DESC_A,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_DESC_D,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_TIME_A,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_TIME_D,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_PERC_A,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_PERC_D,  IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_COUNT_A, IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_COUNT_D, IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SORT_SEQUENCE,IDH_OPTIONS_SORT
+   HELPSUBITEM IDM_SEC_SORT,        IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_NONE,    IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_CODE_A,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_CODE_D,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_DESC_A,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_DESC_D,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_TIME_A,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_TIME_D,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_PERC_A,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_PERC_D,  IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_COUNT_A, IDH_OPTIONS_SECSORT
+   HELPSUBITEM IDM_SECSORT_COUNT_D, IDH_OPTIONS_SECSORT
+
+   HELPSUBITEM IDM_START,        IDH_POPUP_START
+   HELPSUBITEM IDM_STOP,         IDH_POPUP_STOP
+   HELPSUBITEM IDM_EDIT,         IDH_POPUP_EDIT
+   HELPSUBITEM IDM_DELETE,       IDH_POPUP_DELETE
+   HELPSUBITEM IDM_ADD,          IDH_POPUP_ADD
+   HELPSUBITEM IDM_EXCLUDE,      IDH_POPUP_EXCLUDE
+   HELPSUBITEM IDM_HIDE,         IDH_POPUP_HIDE
+   HELPSUBITEM IDM_TRANSFER,     IDH_POPUP_TRANSFER
+   HELPSUBITEM IDM_RESETIT,      IDH_POPUP_RESETIT     /* 1.98 */
+   HELPSUBITEM IDM_MAIN,         IDH_POPUP_MAIN
+
+   HELPSUBITEM IDM_HELP,         IDH_MENU_HELP
+   HELPSUBITEM IDM_USINGHELP,    IDH_MENU_HELPUSING
+   HELPSUBITEM SC_HELPINDEX,     IDH_MENU_HELPINDEX
+   HELPSUBITEM SC_HELPEXTENDED,  IDH_MENU_HELPGENERAL
+   HELPSUBITEM SC_HELPKEYS,      IDH_MENU_HELPKEYS
+   HELPSUBITEM IDM_HELPPRODINFO, IDH_MENU_HELPPRODINFO
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_EDIT
+  {
+   HELPSUBITEM IDD_EDIT,         IDH_EDIT
+   HELPSUBITEM IDE_CODE,         IDH_EDIT_CODE
+   HELPSUBITEM IDE_DESCRIPTION,  IDH_EDIT_DESCRIPTION
+   HELPSUBITEM IDE_COMMENTS,     IDH_EDIT_COMMENTS
+   HELPSUBITEM IDE_ACTCMD,       IDH_EDIT_PROGRAM
+   HELPSUBITEM IDE_APARM,        IDH_EDIT_PARAMETERS
+   HELPSUBITEM IDE_FOCUS,        IDH_EDIT_FOCUS
+   HELPSUBITEM IDC_EXCLUDE,      IDH_EDIT_EXCLUDE
+   HELPSUBITEM IDC_COUNT,        IDH_EDIT_COUNT
+   HELPSUBITEM IDC_HIDDEN,       IDH_EDIT_HIDDEN
+   HELPSUBITEM IDC_LOCK,         IDH_EDIT_LOCK
+   HELPSUBITEM IDC_QKEY,         IDH_EDIT_HOTKEY
+   HELPSUBITEM IDC_HH,           IDH_EDIT_TIME
+   HELPSUBITEM IDC_MM,           IDH_EDIT_TIME
+   HELPSUBITEM IDC_SS,           IDH_EDIT_TIME
+   HELPSUBITEM IDC_PARENT,       IDH_EDIT_PARENT
+   HELPSUBITEM IDC_ACTALARM,     IDH_EDIT_ACTALARM
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_ADD
+  {
+   HELPSUBITEM IDD_ADD,          IDH_ADD
+   HELPSUBITEM IDE_CODE,         IDH_ADD_CODE
+   HELPSUBITEM IDE_DESCRIPTION,  IDH_ADD_DESCRIPTION
+   HELPSUBITEM IDE_COMMENTS,     IDH_ADD_COMMENTS
+   HELPSUBITEM IDE_ACTCMD,       IDH_ADD_PROGRAM
+   HELPSUBITEM IDE_APARM,        IDH_ADD_PARAMETERS
+   HELPSUBITEM IDE_FOCUS,        IDH_ADD_FOCUS
+   HELPSUBITEM IDC_EXCLUDE,      IDH_ADD_EXCLUDE
+   HELPSUBITEM IDC_HIDDEN,       IDH_ADD_HIDDEN
+   HELPSUBITEM IDC_LOCK,         IDH_ADD_LOCK
+   HELPSUBITEM IDC_QKEY,         IDH_ADD_HOTKEY
+   HELPSUBITEM IDC_PARENT,       IDH_ADD_PARENT
+   HELPSUBITEM IDP_SAVE,         IDH_ADD_SAVE
+   HELPSUBITEM IDC_ACTALARM,     IDH_ADD_ACTALARM
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_NOTEBOOK
+  {
+   HELPSUBITEM ID_NBWINDOW,      IDH_SETTINGS
+   HELPSUBITEM IDB_MINUTES,      IDH_SETTINGS_UNITS
+   HELPSUBITEM IDB_HOURS,        IDH_SETTINGS_UNITS
+/* 1.98 */
+   HELPSUBITEM IDB_HMS,          IDH_SETTINGS_UNITS
+   HELPSUBITEM IDB_HM,           IDH_SETTINGS_UNITS
+// HELPSUBITEM IDB_DOTS,         IDH_SETTINGS_UNITS
+// HELPSUBITEM IDB_COLON,        IDH_SETTINGS_UNITS
+// HELPSUBITEM IDB_DATE1,        IDH_SETTINGS_DATEFORMAT
+// HELPSUBITEM IDB_DATE2,        IDH_SETTINGS_DATEFORMAT
+// HELPSUBITEM IDB_DATE3,        IDH_SETTINGS_DATEFORMAT
+   HELPSUBITEM IDC_REFRESH,      IDH_SETTINGS_REFRESH
+   HELPSUBITEM IDC_REFRESHSAVE,  IDH_SETTINGS_REFSAVE
+   HELPSUBITEM IDC_EXIT,         IDH_SETTINGS_EXIT
+   HELPSUBITEM IDC_DELETE,       IDH_SETTINGS_DELETE
+   HELPSUBITEM IDC_RESET,        IDH_SETTINGS_RESET
+   HELPSUBITEM IDC_RESETNEW,     IDH_SETTINGS_RESETNEW
+   HELPSUBITEM IDP_DEFAULT,      IDH_SETTINGS_DEFAULT
+   HELPSUBITEM IDC_EXCLUDEALL,   IDH_SETTINGS_EXCLUDE
+   HELPSUBITEM IDC_INITRESET,    IDH_SETTINGS_INITRESET
+   HELPSUBITEM IDC_HIDE,         IDH_SETTINGS_HIDE
+   HELPSUBITEM IDC_MINIMIZE,     IDH_SETTINGS_MINIMIZE
+   HELPSUBITEM IDC_STARTITEM,    IDH_SETTINGS_STARTITEM
+   HELPSUBITEM IDC_SMALLWIN,     IDH_SETTINGS_SMALLWIN
+   HELPSUBITEM IDC_BLANKCOM,     IDH_SETTINGS_BLANKCOM
+/* 1.98 */
+// HELPSUBITEM IDC_HIDETOTAL,    IDH_SETTINGS_HIDETOTAL
+   HELPSUBITEM IDC_GOMAIN,       IDH_SETTINGS_GOMAIN
+   HELPSUBITEM IDC_NOFOCUS,      IDH_SETTINGS_NOFOCUS
+   HELPSUBITEM IDC_SUBACTWIN,    IDH_SETTINGS_SUBACTWIN
+
+   HELPSUBITEM IDC_SAVEDATA,     IDH_REPORT_SAVEDATA
+   HELPSUBITEM IDC_PRUNEDAYS,    IDH_REPORT_SAVEDATA
+   HELPSUBITEM IDC_REPDESC,      IDH_REPORT_DESCRIPTION
+   HELPSUBITEM IDC_REPCOMM,      IDH_REPORT_COMMENTS
+   HELPSUBITEM IDC_REPHIDE,      IDH_REPORT_HIDDEN
+   HELPSUBITEM IDC_REPEXCL,      IDH_REPORT_EXCLUDE
+   HELPSUBITEM IDC_REPDETAILS,   IDH_REPORT_DETAILS
+   HELPSUBITEM IDC_REPZERO,      IDH_REPORT_ZERO
+   HELPSUBITEM IDE_REPLINE1,     IDH_REPORT_NOTES    /* 1.98 */
+   HELPSUBITEM IDE_REPLINE2,     IDH_REPORT_NOTES    /* 1.98 */
+
+   HELPSUBITEM IDC_ALARM,        IDH_ALARM_TIME
+   HELPSUBITEM IDC_ALARMEXPIRE,  IDH_ALARM_ALARMEXP
+   HELPSUBITEM IDC_SOUND,        IDH_ALARM_SOUND
+   HELPSUBITEM IDC_MESSAGE,      IDH_ALARM_MESSAGE
+   HELPSUBITEM IDC_ALARMEDIT,    IDH_ALARM_EDIT
+   HELPSUBITEM IDC_ALARMITEM,    IDH_ALARM_ITEM
+   HELPSUBITEM IDP_ALARMDEF,     IDH_ALARM_DEFAULT
+   HELPSUBITEM IDC_ALARMCHG,     IDH_ALARM_CHANGE
+   HELPSUBITEM IDC_CURRENT,      IDH_ALARM_CURRENT
+
+   HELPSUBITEM IDE_MENUTEXT,     IDH_USEREXIT_MENUTEXT
+   HELPSUBITEM IDE_PROGRAM,      IDH_USEREXIT_PROGRAM
+   HELPSUBITEM IDE_PARAMETERS,   IDH_USEREXIT_PARAMETERS
+   HELPSUBITEM IDP_CLEAR,        IDH_USEREXIT_CLEAR
+
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_REPORTLIST
+  {
+   HELPSUBITEM IDE_REPLINE1,     IDH_REPORT_NOTES    /* 1.98 */
+   HELPSUBITEM IDE_REPLINE2,     IDH_REPORT_NOTES    /* 1.98 */
+   HELPSUBITEM IDD_REPORTLIST,   IDH_REPORTLIST
+   HELPSUBITEM IDL_REPLIST,      IDH_REPORTLIST
+   HELPSUBITEM IDC_TOTAL,        IDH_REPORTLIST_TOTAL
+   HELPSUBITEM IDP_NONE,         IDH_REPORTLIST_NONE
+   HELPSUBITEM IDP_ALL,          IDH_REPORTLIST_ALL
+   HELPSUBITEM IDP_DELETE,       IDH_REPORTLIST_DELETE
+   HELPSUBITEM IDP_REPLISTHELP,  IDH_REPORTLIST
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_REPORT
+  {
+   HELPSUBITEM IDD_REPORT,       IDH_REPORT
+   HELPSUBITEM IDE_REPORT,       IDH_REPORT
+   HELPSUBITEM IDP_REPHELP,      IDH_REPORT
+   HELPSUBITEM IDP_REPSAVE,      IDH_REPORT
+   HELPSUBITEM IDP_PRINT,        IDH_REPORT
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_REPORTEDIT
+  {
+   HELPSUBITEM IDD_REPORTEDIT,   IDH_REPORTEDIT
+   HELPSUBITEM IDC_MONTH,        IDH_REPEDIT_DATE
+   HELPSUBITEM IDC_DAY,          IDH_REPEDIT_DATE
+   HELPSUBITEM IDC_YEAR,         IDH_REPEDIT_DATE
+   HELPSUBITEM IDL_ACTIVITY,     IDH_REPEDIT_LIST
+   HELPSUBITEM IDC_HH,           IDH_REPEDIT_TIME
+   HELPSUBITEM IDC_MM,           IDH_REPEDIT_TIME
+   HELPSUBITEM IDC_SS,           IDH_REPEDIT_TIME
+   HELPSUBITEM IDE_COMMENTS,     IDH_REPEDIT_COMMENTS
+   HELPSUBITEM IDC_COUNT,        IDH_REPEDIT_COUNT
+   HELPSUBITEM IDE_PARENT,       IDH_REPEDIT_PARENT
+   HELPSUBITEM IDP_GETDATA,      IDH_REPEDIT_GETDATA
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_ALARMMSG
+  {
+   HELPSUBITEM IDD_ALARMMSG,     IDH_ALARMMSG
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_ALARMCHG
+  {
+   HELPSUBITEM IDD_ALARMCHG,     IDH_ALARMCHG
+   HELPSUBITEM IDC_NEWALARM,     IDH_ALARMCHG_ALARM
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_SAVEREP
+  {
+   HELPSUBITEM IDD_SAVEREP,      IDH_SAVEREP
+   HELPSUBITEM IDE_REPFILE,      IDH_SAVEREP
+  }
+
+HELPSUBTABLE IDH_SUBTABLE_TRANSFER
+  {
+   HELPSUBITEM IDD_TRANSFER,     IDH_TRANSFER
+   HELPSUBITEM IDC_TRANSFER,     IDH_TRANSFER_LIST
+   HELPSUBITEM IDC_HH,           IDH_TRANSFER_AMOUNT
+   HELPSUBITEM IDC_MM,           IDH_TRANSFER_AMOUNT
+   HELPSUBITEM IDC_SS,           IDH_TRANSFER_AMOUNT
+   HELPSUBITEM IDC_COUNT,        IDH_TRANSFER_COUNT
+   HELPSUBITEM IDC_ADDCOUNT,     IDH_TRANSFER_ADDCOUNT
+  }
+
+/******************************************************************************/
+/* Standard icon and bitmap definitions. Use the Icon Editor to create both   */
+/* an icon and bitmap (32x32) of your application.                            */
+/******************************************************************************/
+
+ICON idFrameWindow TIMETRAC.ICO
+BITMAP ID_TTBMP1   TTBMP1.BMP
+BITMAP ID_TTBMP2   TTBMP2.BMP
+BITMAP ID_TTBMP3   TTBMP3.BMP
+BITMAP ID_TTBMP4   TTBMP4.BMP
+BITMAP ID_TTBMP5   TTBMP5.BMP
+BITMAP ID_TTBMP6   TTBMP6.BMP
+BITMAP ID_TTBMP7   TTBMP7.BMP
+BITMAP ID_TTBMP8   TTBMP8.BMP
+
+/******************************************************************************/
+/* Include window resource files in here too!                                 */
+/******************************************************************************/
+
+rcinclude timetrac.dlg

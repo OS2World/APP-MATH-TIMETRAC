@@ -1,0 +1,327 @@
+                          TIMETRAC Version 1.97
+                        PM Activity Time Tracker
+
+CHANGE HISTORY: See also Future Enhancements below.
+
+V1.97 23Jan95   Bug fixes:
+                  Deleting last report and last activity causes TIMETRAC to
+                    hang (problem with sort routine)
+                  Don't allow to transfer > activity time, avoid negative times
+                  Deletion of multiple reports in Reports List
+                  Update title when deleting activity being tracked
+                  Fix Change Data problem with WARP, retrieve new day
+                  Total check box in Report List always checked
+                Save settings option
+
+V1.96 31Aug94   New features:
+                  Display parent in Alarm Message dialog window.
+                  Do not close Report List unless Close is pressed.
+
+V1.95 28Aug94   Bug fixes:
+                  Hot key does not work for collapsed sub-activity.
+                New features:
+                  Add hotkey number in main window for easy reference.
+                  3D bottom status area.
+
+V1.94a 1Aug94   Bug fixes:
+                  Parent and sub-activity with the same code not
+                    working properly.
+
+V1.94 16May94   Bug fixes:
+                  Continuing alarm problems
+                  Ensure -0.00 is not displayed after transfer time
+                  Do not change Alarm Interval setting when Set Alarm
+                    Interval window value is changed
+                New features:
+                  Print report (no formatting and only to LPT1)
+                  Combo box controls only show valid activities
+
+V1.93 05May94   Bug fixes:
+                  Alarm goes off only once if Continue click in alarm
+                  Trap when Settings window closed
+                New features:
+                  Allow to Delete reports
+
+V1.92 29Apr94   Bug fixes:
+                  Fix for OS/2 2.0 (increase stack size in DEF file)
+                  Problem with default alarm activity
+                  Prevent times > 999.99, show error message
+                New features:
+                  Option for original sub-activity window
+
+V1.91 25Apr94   Bug fixes:
+                  Fix problem when default startup activity is a
+                    sub-activity
+                  Alarm only shows once
+                  Fix Change data problem for sub-activities
+                  Edit activity, duplicate hotkey incorrectly checked
+                New features:
+                  Double-click will now collapse an expanded activity
+                  Option to show activities with 0 times in report
+                  Option to automatically collapse parent activity
+                    (used to be called Return to Main list)
+                  Currently selected activity remains selected and
+                    do not scroll to top when activity started
+
+V1.9  16Apr94   New features:
+                  Expand/Collapse (+/-) activity list
+                  Add date in status line
+                  Allow unique activity code/parent code combination
+                  Improve report listing (place sub-activity indented
+                    under the parent activity)
+                  Sort report list in descending date order
+                  Option for No focus change (keep focus on TIMETRAC)
+                  Alarm time settable by activity
+                  Customizable alarm expiry time
+
+V1.83 16Feb94   Bug fixes:
+                  Problem when deleting last sub-activity
+                  Trap when alarm expires and track current activity
+                    which is a sub-activity
+                New features:
+                  Allow to create report for other date in Change data
+
+V1.82 05Feb94   Bug fixes:
+                  Problem with total in Change Data function
+                  Add activity description to Transfer dialog
+                New features:
+                  Option to track current activity when alarm expires
+                  Option to return to main list when starting
+                    sub-activity
+                  Add 1 to count option in Transfer
+
+V1.81 30Jan94   Bug fixes:
+                  Problem when changing (editing) the activity code
+                    which has sub-activities already defined
+                  Trap when double-clicking on main window when empty
+                  Include dummy TIMETRAC.LST for new users
+
+V1.8  27Jan94   Bug fixes:
+                  Problem with hidden codes and quick key
+                  Saved reports pruned incorrectly at new year
+                New features:
+                  Sub-activity support (one level only)
+                  Restore minimized window when given focus
+                  Add count in Transfer dialog
+                  New option to add hidden activities to total time
+                  Accelerator key (Ctrl-U) for User Exit menu option
+
+V1.73 28Sep93   Bug fixes:
+                  Minor bug fix during startup
+                New features:
+                  Option to blank out all comments on new day
+                  Restore window (if minimized) when activity started
+
+V1.72 22Aug93   Bug fixes:
+                  Description not shown in report for newly added
+                    code
+                  Change fonts, right mouse button selection incorrect
+                  Change accelerator for Fonts... from Alt-F to Ctrl-F
+                  Fix secondary sort, add back to Sort menu
+                  Delete flag lost when going into Settings
+                  Fix several problems when there are no activities
+                New features:
+                  Select focus title when starting activity code
+
+V1.71 17Aug93   Bug fixes:
+                  Increase heap/stack size to fix problem with Fonts andn
+                    Settings windows
+                  Remove secondary sort (not working correctly yet)
+
+V1.7  13Aug93   Bug fixes:
+                  Problem with Use Hidden when last item is set as hidden
+                  Window position closing TIMETRAC when minimized
+                New features:
+                  Add activity desciption to bottom status line and
+                    Transfer dialog box
+                  Support for comments (TIMETRAC.CM), see Note
+                  New Confirmation setting "Reset for new day"
+                  Sort by % and count, secondary sort support
+                  Quick key (Ctrl-#) to start tracking activity
+                  Use spin buttons for setting times
+                  Invoke user-defined program when activity started
+                  Allow user to customize fonts
+                  Larger Report dialog window
+                NOTES: 1) Run MIGRCOM first before using this version.
+                       2) You may need to change your font if TIMETRAC
+                          incorrectly sets it to a proportional font. Go
+                          to Options, Fonts...
+
+V1.62 06Jul93   Compile using IBM OS/2 Toolkit V2.1
+                Strip blanks from window title
+                Don't show refresh message for same day
+
+V1.61 25Jun93   Bug fixes:
+                  Save data at midnight - exit TIMETRAC before first
+                    refresh
+                New features:
+                  Change data window enhancements:
+                    - Save pushbutton in Change data window
+                    - Reset to 0 when no report retrieved
+                  Grey out Stop menu item when not available
+                  Dynamic Add - Add window displayed when double-clicking
+                    empty space in list or status line
+
+V1.6  10Jun93   New features:
+                  Sort report list
+                  Default startup activity as a option setting
+                  Change accelerator keys (use Ctrl for consistency)
+                  Transfer correct time without refreshing
+                  Allow to edit existing report data
+                  Special window option setting (no title bar, menu
+                    bar and heading)
+                  Improve Create data (now called Change data) window
+                    to be more usable, do not need to double click on
+                    item
+
+V1.53 18May93   Bug fixes:
+                  Reset time and count when report save automatically
+                     for a new day (if Reset at Startup)
+                  Fix keyboard support for Alarm Message dialog
+                New features:
+                  New option to create data for another day
+
+V1.52 11May93   Bug fixes:
+                  Count not reset to 0 for initial reset option
+                New features:
+                  Option to lock up WPS (DeskTop) when starting an
+                    activity code (option found in Add and Edit)
+
+V1.51 10May93   Bug fixes:
+                  Fix multi-threaded exit which causes activities
+                    codes to be lost when closing TIMETRAC
+                  Fix keyboard focus problem when Enter pressed
+                    from the Task List
+                  Change Save report to Save data to avoid confusion
+
+V1.5  06May93   Bug fixes:
+                  Fix when closing TIMETRAC when minimize, next
+                     time TIMETRAC starts, will be minimized
+                  Add Exclude and Add Hidden to report causes
+                     incorrect total to be placed in report
+                  Use MLE instead of listbox in report
+                  Deleted activities shown in settings list and
+                     are incorrectly added to report
+                New features:
+                  Save report to file
+                  Show description in report (optional setting)
+                  Counter for number of times activity code started,
+                    also added to report
+                  Default sort support, No Sort menu option
+                  Transfer time from one activity to another
+                  /P= (location of profile) and /D= (location of
+                    data file) parameter options
+                  Option (setting) to minimize TIMETRAC when an activity
+                    code is started
+                NOTE: Please run MIGRREP to migrate your TIMETRAC report
+                      file (TIMETRAC.TT) from V1.4 to V1.5. Backup all your
+                      TIMETRAC files before running this version since there
+                      are significant changes to this version.
+                ** PMWARS users, please see TIMETRAC AVAIL.
+
+V1.41 22Apr93   Bug fixes:
+                  Make Continue the default pushbutton in Alarm Reminder
+                  Display activity in title bar when /S option used
+                New features:
+                  Support PgUp and PgDown in report window (use a listbox)
+                  Option to not save to file during auto refreshes
+
+V1.4  21Apr93   New features:
+                  Report dialog boxes now modeless
+                  Use notebook control for all settings, also modeless
+                  New alarm options:
+                    - default application to track
+                    - allow user to change default alarm interval
+                    - option to edit code when alarm expires
+                  New report options:
+                    - option to total several selected reports
+                    - option to include or remove excluded/hidden
+                      codes from report
+                  Save reports automatically with new day
+                  Start TIMETRAC using /S= option to start tracking
+                    an activity code automatically upon startup
+                  Put focus back on original window after user
+                    double clicks to start tracking activity
+                  Fix remembering window size/position when TIMETRAC
+                    is closed when minimized
+                NOTE: Please run TMIGRINI to migrate your TIMETRAC profile
+                      (TIMETRAC.INI) from V1.3 to V1.4. Backup all your
+                      TIMETRAC files before running this version since there
+                      are significant changes.
+
+V1.3  30Mar93   New features:
+                  Restore TIMETRAC if minimized when user answers Yes
+                    to alarm reminder message (to stop tracking current
+                    activity)
+                  Save report during the day without shutting down
+                    TIMETRAC, see File pull-down option
+                  New time formats: HH:MM:SS and HH.MM.SS in Settings
+
+V1.22 26Mar93   Bug fix for V1.2 when total time is 0 causes a divide by
+                  0 when calculating %s.
+
+V1.21 25Mar93   Bug fixes:
+                  Fix error when adding an activity code (possible timing
+                    problem when sharing the file resource)
+                  Fix keyboard Enter when no item selected
+                  Make keyboard support for dialog windows more consistent
+                New features:
+                  Return focus to original window when user answers No
+                    to Alarm reminder
+                  Place check mark on last sort selected
+                  Add Total and units text to report to make clearer,
+                    don't show activity codes with 0
+
+V1.2  24Mar93   Many new features:
+                  Add % to activity list
+                  Show hide character (#) and exclude+hide char
+                    (%) in activity list
+                  Keyboard support (like Window List), press Enter to
+                    start tracking selected activity code
+                  Right mouse click automatically selects code if
+                    on valid position
+                  Change accelerator keys to be unique
+                  Add % to report, make it only single column, add
+                    total time and units used. Required migration
+                    of control files (MIGRREP.EXE)
+                NOTE: Please run MIGRREP to migrate your TIMETRAC data
+                      files before running V1.2 You can then erase the
+                      MIGRREP.EXE as it is not needed to run TIMETRAC.
+
+V1.1  21Mar93   Many new features:
+                  Display activity code being tracked in title bar
+                  Sort facility (ascending/descending sort by activity
+                    code, activity description and time)
+                  Hide/Show option (similar to Ex/Include)
+                  Alarm. User customizable remind facility.
+                  User exit. User customizable exit to allow access to
+                    to another program directly from TIMETRAC.
+                NOTE: Please check to ensure your Settings are still
+                      correct from V1.0.
+
+V1.0  13Mar93   First release to OS2TOOLS.
+
+
+FUTURE ENHANCEMENTS:
+
+   - Known bugs
+      o When pop-up menu displayed, TIMETRAC hangs when minimize or
+        maximized buttons pressed
+      o Focus not correct when TIMETRAC minimized
+      o Pressing Alt-F4 in Settings window closes TIMETRAC
+   - Track window with focus separately
+   - Overtime (OT) support
+   - Option to round up to nearest hour/minute in report
+   - Need to improve the Report dialog window, MLE scrolling not
+      working, maybe also use a scrollable window
+   - Alarm
+      o If there's no response within some specified timeout, the alarm
+        reminder dialog box should disappear and reappear again when
+        any user activity (ie. keyboard or mouse action) resumes
+   - Print (or save to a file) contents of main TIMETRAC window
+   - Sort
+      o Allow user to sequence activity list
+   - Record activity start times so it can be displayed in report
+   - Hook into PMDIARY?
+   - Use container instead of list box, make more object-oriented
+   - Remove maximum limit of number of activity codes (100)

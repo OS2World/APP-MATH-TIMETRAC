@@ -1,0 +1,10 @@
+;-------------------------------------
+; TIMETRAC.DEF module definition file
+;-------------------------------------
+
+NAME           TIMETRAC WINDOWAPI
+
+DESCRIPTION    'TIMETRAC - Ric Zapanta'
+PROTMODE
+HEAPSIZE       16384
+STACKSIZE      655360

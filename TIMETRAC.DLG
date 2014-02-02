@@ -1,0 +1,524 @@
+DLGINCLUDE 1 "F:\PMWORK\TIMETRAC\TIMEDLG.H"
+
+DLGTEMPLATE IDD_ALARMCHG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Set Alarm Interval", IDD_ALARMCHG, 116, 106, 124, 57,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Alarm Interval", 323, 7, 32, 63, 8
+        CONTROL         "", IDC_NEWALARM, 73, 29, 39, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "minutes", 324, 73, 43, 37, 8, NOT WS_GROUP
+        DEFPUSHBUTTON   "Ok", DID_OK, 15, 7, 40, 14, WS_GROUP
+        PUSHBUTTON      "Help", IDP_HELP, 67, 7, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_SAVEREP LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Save Report", IDD_SAVEREP, 112, 85, 182, 50, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "File", IDC_REPDETAILS, 9, 31, 26, 8
+        ENTRYFIELD      "", IDE_REPFILE, 35, 31, 131, 8, ES_MARGIN
+        DEFPUSHBUTTON   "Save", DID_OK, 14, 6, 40, 14, WS_GROUP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 69, 6, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_HELP, 123, 6, 40, 14, BS_HELP | NOT
+                        WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_USEREXIT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_USEREXIT, 117, 57, 190, 110, NOT FS_DLGBORDER |
+            WS_VISIBLE
+    BEGIN
+        LTEXT           "Menu Text", 310, 11, 85, 55, 8
+        ENTRYFIELD      "", IDE_MENUTEXT, 72, 85, 73, 8, ES_MARGIN
+        LTEXT           "Program Name", 311, 11, 67, 101, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_PROGRAM, 14, 55, 132, 8, ES_MARGIN
+        LTEXT           "Parameters", 312, 12, 39, 100, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_PARAMETERS, 14, 27, 134, 8, ES_MARGIN
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 5, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Clear", IDP_CLEAR, 60, 5, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_USERHELP, 110, 5, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_CONFIRM LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_CONFIRM, 94, 47, 190, 110, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        AUTOCHECKBOX    "Confirm exit", IDC_EXIT, 15, 70, 80, 10, WS_GROUP
+        AUTOCHECKBOX    "Confirm delete", IDC_DELETE, 15, 55, 81, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Confirm reset", IDC_RESET, 15, 40, 78, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Confirm reset for new day", IDC_RESETNEW, 15, 25,
+                        133, 10, NOT WS_TABSTOP
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 5, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Default", IDP_DEFAULT, 60, 5, 40, 14, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_SETHELP, 110, 5, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_ALARMMSG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "TIMETRAC Alarm Reminder", IDD_ALARMMSG, 103, 43, 165, 134,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Current Activity:", 325, 8, 117, 69, 8
+        LTEXT           "Default Activity:", 326, 8, 95, 71, 8, NOT WS_GROUP
+        LTEXT           "Alarm Interval:", 327, 8, 84, 70, 8, NOT WS_GROUP
+        LTEXT           "Stop tracking the current activity?", 328, 8, 58,
+                        152, 8, NOT WS_GROUP
+        LTEXT           "Default activity (if given) will be", 329, 8, 42,
+                        144, 8, NOT WS_GROUP
+        LTEXT           "tracked if no answer when alarm ", 330, 8, 34, 148,
+                        8, NOT WS_GROUP
+        LTEXT           "", IDS_CURACT, 86, 117, 71, 8, NOT WS_GROUP
+        LTEXT           "", IDS_DEFACT, 86, 95, 71, 8, NOT WS_GROUP
+        LTEXT           "", IDS_ALARMINT, 86, 84, 69, 8, NOT WS_GROUP
+        PUSHBUTTON      "Stop", DID_OK, 9, 5, 40, 14, WS_GROUP | NOT
+                        WS_TABSTOP
+        DEFPUSHBUTTON   "Continue", DID_CANCEL, 56, 5, 50, 14
+        PUSHBUTTON      "Help", IDP_HELP, 113, 5, 40, 14, BS_HELP | NOT
+                        WS_TABSTOP
+        LTEXT           "Alarm Expiry:", IDC_REPZERO, 8, 73, 65, 8
+        LTEXT           "", IDS_ALARMEXP, 86, 72, 75, 8
+        LTEXT           "expires.", IDC_SUBACTWIN, 8, 26, 137, 8
+        LTEXT           "Parent:", IDE_REPLINE1, 8, 107, 56, 8
+        LTEXT           "", IDS_PARACT, 86, 108, 71, 8
+    END
+END
+
+DLGTEMPLATE IDD_ADD LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Add Activity Code", IDD_ADD, 119, -46, 197, 213, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Activity Code", 300, 7, 195, 58, 8
+        ENTRYFIELD      "", IDE_CODE, 74, 195, 49, 8, ES_MARGIN
+        LTEXT           "Description", 301, 8, 180, 55, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_DESCRIPTION, 74, 181, 109, 8, ES_MARGIN
+        LTEXT           "Comments", IDC_RESETNEW, 7, 166, 57, 8, NOT
+                        WS_GROUP
+        ENTRYFIELD      "", IDE_COMMENTS, 74, 167, 109, 8, ES_MARGIN
+        LTEXT           "Parent", IDC_CURRENT, 7, 152, 54, 8, NOT WS_GROUP
+        CONTROL         "", IDC_PARENT, 72, 96, 63, 65, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        AUTOCHECKBOX    "Exclude from total time", IDC_EXCLUDE, 8, 133, 126,
+                        10
+        AUTOCHECKBOX    "Hide from list", IDC_HIDDEN, 8, 121, 125, 10
+        LTEXT           "Alarm interval", IDC_REPZERO, 9, 107, 71, 8
+        CONTROL         "", IDC_ACTALARM, 73, 106, 34, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "minutes", IDS_ALARMEXP, 114, 108, 38, 8, NOT
+                        WS_GROUP
+        GROUPBOX        "Startup", IDC_BLANKCOM, 9, 23, 176, 77
+        AUTOCHECKBOX    "Lockup", IDC_LOCK, 20, 80, 154, 10
+        LTEXT           "Program", IDC_REPCOMM, 20, 68, 48, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_ACTCMD, 73, 68, 101, 8, ES_MARGIN | NOT
+                        WS_TABSTOP
+        LTEXT           "Parameters", IDC_REPDETAILS, 20, 56, 50, 8, NOT
+                        WS_GROUP
+        ENTRYFIELD      "", IDE_APARM, 73, 56, 101, 8, ES_MARGIN | NOT
+                        WS_TABSTOP
+        LTEXT           "Focus", IDC_HIDETOTAL, 20, 44, 48, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_FOCUS, 73, 44, 101, 8, ES_MARGIN | NOT
+                        WS_TABSTOP
+        LTEXT           "Quick Key  Ctrl-# (1-9)", IDC_GOMAIN, 20, 29, 107,
+                        8, NOT WS_GROUP
+        CONTROL         "", IDC_QKEY, 131, 27, 23, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_VISIBLE
+        DEFPUSHBUTTON   "Ok", DID_OK, 7, 4, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Save", IDP_SAVE, 53, 4, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 99, 4, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_ADDHELP, 145, 4, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_ALARM LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_ALARM, 100, 64, 200, 147, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        LTEXT           "Default Alarm interval", 314, 12, 124, 94, 8
+        CONTROL         "", IDC_ALARM, 107, 122, 38, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "minutes", 315, 149, 124, 37, 8, NOT WS_GROUP
+        LTEXT           "Default Alarm expiry", IDC_NOFOCUS, 12, 109, 91, 8
+        CONTROL         "", IDC_ALARMEXPIRE, 107, 107, 38, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        WS_TABSTOP | WS_VISIBLE
+        LTEXT           "minutes", IDC_REPZERO, 149, 109, 32, 8, NOT
+                        WS_GROUP
+        CONTROL         "", IDC_ALARMITEM, 118, 37, 79, 65, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | LS_HORZSCROLL | WS_GROUP |
+                        WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Default activity to track", 316, 12, 94, 105, 8,
+                        NOT WS_GROUP
+        AUTOCHECKBOX    "Use current activity", IDC_CURRENT, 20, 81, 94, 10,
+                        NOT WS_TABSTOP
+        GROUPBOX        "Options", IDS_CURACT, 10, 23, 106, 52
+        AUTOCHECKBOX    "Sound alarm", IDC_SOUND, 18, 56, 91, 10
+        AUTOCHECKBOX    "Display message ", IDC_MESSAGE, 18, 46, 93, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Edit when expired", IDC_ALARMEDIT, 18, 36, 92, 10,
+                        NOT WS_TABSTOP
+        AUTOCHECKBOX    "Set alarm interval", IDC_ALARMCHG, 18, 26, 92, 10,
+                        NOT WS_TABSTOP
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 5, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Default", IDP_ALARMDEF, 60, 5, 40, 14, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_ALARMHELP, 110, 5, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_EDIT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Edit Activity Code", IDD_EDIT, 91, -21, 193, 225, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Activity Code", 302, 10, 211, 59, 8
+        ENTRYFIELD      "", IDE_CODE, 71, 211, 49, 8, ES_MARGIN
+        LTEXT           "Description", 303, 10, 197, 53, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_DESCRIPTION, 71, 197, 114, 8, ES_MARGIN
+        LTEXT           "Comments", IDC_RESETNEW, 10, 183, 55, 8, NOT
+                        WS_GROUP
+        ENTRYFIELD      "", IDE_COMMENTS, 71, 183, 114, 8, ES_MARGIN
+        LTEXT           "Parent", 505, 10, 168, 51, 8, NOT WS_GROUP
+        CONTROL         "", IDC_PARENT, 69, 107, 69, 71, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Time", 304, 10, 153, 46, 8, NOT WS_GROUP
+        CONTROL         "", IDC_HH, 69, 151, 33, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        CONTROL         "", IDC_MM, 104, 151, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | SPBS_PADWITHZEROS | WS_TABSTOP |
+                        WS_VISIBLE
+        CONTROL         "", IDC_SS, 132, 151, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | SPBS_PADWITHZEROS | WS_TABSTOP |
+                        WS_VISIBLE
+        LTEXT           "Count", IDC_MINIMIZE, 10, 139, 48, 8, NOT WS_GROUP
+        CONTROL         "", IDC_COUNT, 69, 137, 33, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        AUTOCHECKBOX    "Exclude from total time", IDC_EXCLUDE, 10, 122, 128,
+                        10
+        AUTOCHECKBOX    "Hide from list", IDC_HIDDEN, 10, 112, 121, 10
+        LTEXT           "Alarm interval", IDC_REPZERO, 10, 101, 65, 8
+        CONTROL         "", IDC_ACTALARM, 74, 100, 39, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "minutes", IDS_ALARMEXP, 118, 102, 38, 8, NOT
+                        WS_GROUP
+        GROUPBOX        "Startup", IDC_REPDETAILS, 8, 24, 174, 71
+        AUTOCHECKBOX    "Lockup", IDC_LOCK, 18, 77, 123, 10
+        LTEXT           "Program", IDC_REPCOMM, 18, 66, 50, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_ACTCMD, 75, 66, 98, 8, ES_MARGIN | NOT
+                        WS_TABSTOP
+        LTEXT           "Parameters", IDC_BLANKCOM, 18, 54, 49, 8, NOT
+                        WS_GROUP
+        ENTRYFIELD      "", IDE_APARM, 75, 54, 98, 8, ES_MARGIN | NOT
+                        WS_TABSTOP
+        LTEXT           "Focus", IDC_HIDETOTAL, 18, 42, 50, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_FOCUS, 75, 42, 98, 8, ES_MARGIN | NOT
+                        WS_TABSTOP
+        LTEXT           "Quick Key  Ctrl-# (1-9)", IDC_GOMAIN, 18, 29, 109,
+                        8, NOT WS_GROUP
+        CONTROL         "", IDC_QKEY, 128, 27, 22, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_VISIBLE
+        DEFPUSHBUTTON   "Ok ", DID_OK, 22, 4, 40, 14, WS_GROUP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 75, 4, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_EDITHELP, 128, 4, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        LTEXT           "", IDS_TXTTIME, 110, 142, 50, 8
+    END
+END
+
+DLGTEMPLATE IDD_REPORTEDIT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Change Data  ", IDD_REPORTEDIT, 110, -8, 207, 146, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LISTBOX         IDL_ACTIVITY, 135, 48, 59, 63, WS_GROUP
+        LTEXT           "Parent", IDC_ALARMEXPIRE, 8, 92, 29, 8
+        ENTRYFIELD      "", IDE_PARENT, 39, 91, 60, 8, ES_MARGIN
+        LTEXT           "", IDS_CODE, 6, 106, 77, 8
+        LTEXT           "Total", IDC_PARENT, 8, 47, 25, 8, NOT WS_GROUP
+        LTEXT           "", IDS_REPTOTAL, 37, 47, 54, 8, NOT WS_GROUP
+        LTEXT           "Time", IDC_HIDETOTAL, 7, 76, 26, 8
+        CONTROL         "", IDC_HH, 37, 74, 34, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        WS_TABSTOP | WS_VISIBLE
+        CONTROL         "", IDC_MM, 73, 74, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | SPBS_PADWITHZEROS | WS_TABSTOP |
+                        WS_VISIBLE
+        CONTROL         "", IDC_SS, 101, 74, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | SPBS_PADWITHZEROS | WS_TABSTOP |
+                        WS_VISIBLE
+        LTEXT           "Count", IDC_CURRENT, 7, 61, 29, 8
+        CONTROL         "", IDC_COUNT, 37, 59, 34, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Comments", IDC_NOFOCUS, 8, 33, 46, 8
+        ENTRYFIELD      "", IDE_COMMENTS, 61, 33, 133, 8, ES_MARGIN
+        PUSHBUTTON      "Ok", DID_OK, 9, 8, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Save", IDP_SAVE, 56, 8, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 103, 8, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_HELP, 149, 8, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        LTEXT           "MM    DD     YYYY", IDC_ADDCOUNT, 38, 133, 94, 8
+        LTEXT           "Date", IDE_FOCUS, 6, 120, 24, 8, NOT WS_GROUP
+        CONTROL         "", IDC_MONTH, 36, 118, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_PADWITHZEROS | WS_TABSTOP | WS_VISIBLE
+        CONTROL         "", IDC_DAY, 67, 118, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_PADWITHZEROS | WS_TABSTOP | WS_VISIBLE
+        CONTROL         "", IDC_YEAR, 97, 118, 39, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_PADWITHZEROS | WS_TABSTOP | WS_VISIBLE
+        PUSHBUTTON      "~Retrieve", IDP_GETDATA, 144, 117, 44, 14
+        LTEXT           "", IDS_TXTTIME, 77, 64, 50, 8
+    END
+END
+
+DLGTEMPLATE IDD_TRANSFER LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Transfer", IDD_TRANSFER, 97, 32, 297, 81, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "From", 358, 9, 65, 24, 8
+        LTEXT           "", IDS_TRANSFER, 50, 65, 67, 8, NOT WS_GROUP
+        LTEXT           "To", 357, 122, 65, 14, 8
+        CONTROL         "", IDC_TRANSFER, 141, 19, 133, 55, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Time", 355, 9, 49, 24, 8
+        CONTROL         "", IDC_HH, 36, 47, 38, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        CONTROL         "", IDC_MM, 76, 47, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | SPBS_PADWITHZEROS | WS_TABSTOP |
+                        WS_VISIBLE
+        CONTROL         "", IDC_SS, 105, 47, 26, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | SPBS_PADWITHZEROS | WS_TABSTOP |
+                        WS_VISIBLE
+        LTEXT           "Count", IDC_GOMAIN, 9, 31, 33, 8
+        CONTROL         "", IDC_COUNT, 36, 29, 39, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        AUTOCHECKBOX    "Add 1 to count", IDC_ADDCOUNT, 85, 29, 78, 10
+        DEFPUSHBUTTON   "Ok", DID_OK, 5, 7, 40, 14, WS_GROUP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 52, 7, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_HELP, 98, 7, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        LTEXT           "", IDS_TXTTIME, 136, 49, 50, 8
+    END
+END
+
+DLGTEMPLATE IDD_OPTIONS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_OPTIONS, 92, 10, 200, 154, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        LTEXT           "Default startup activity", IDC_RESETNEW, 12, 142,
+                        100, 8
+        CONTROL         "", IDC_STARTITEM, 112, 82, 85, 68, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | LS_HORZSCROLL | WS_TABSTOP |
+                        WS_VISIBLE
+        GROUPBOX        "Options", 326, 13, 32, 126, 109
+        AUTOCHECKBOX    "Reset at startup", IDC_INITRESET, 25, 123, 80, 10
+        AUTOCHECKBOX    "Blank comments", IDC_BLANKCOM, 25, 114, 85, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Use exclusions", IDC_EXCLUDEALL, 25, 105, 83, 10,
+                        NOT WS_TABSTOP
+        AUTOCHECKBOX    "Use hidden", IDC_HIDE, 25, 96, 79, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Minimize", IDC_MINIMIZE, 25, 87, 78, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Save on refresh", IDC_REFRESHSAVE, 25, 78, 86, 10,
+                        NOT WS_TABSTOP
+        AUTOCHECKBOX    "Special window", IDC_SMALLWIN, 25, 69, 84, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Automatically collapse", IDC_GOMAIN, 25, 51, 107,
+                        10, NOT WS_TABSTOP
+        AUTOCHECKBOX    "No focus change", IDC_NOFOCUS, 25, 42, 95, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Sub-activity window", IDC_SUBACTWIN, 25, 33, 109,
+                        10, NOT WS_TABSTOP
+        CONTROL         "", IDC_REFRESH, 88, 19, 38, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_GROUP | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Refresh Interval", 308, 12, 20, 72, 8, NOT WS_GROUP
+        LTEXT           "minutes", 309, 131, 20, 36, 8, NOT WS_GROUP
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 2, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Default", IDP_DEFAULT, 60, 2, 40, 14, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_SETHELP, 110, 2, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_REPSET LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_REPSET, 120, -30, 190, 155, NOT FS_DLGBORDER |
+            WS_VISIBLE
+    BEGIN
+        AUTOCHECKBOX    "Save data daily", IDC_SAVEDATA, 14, 142, 84, 10
+        LTEXT           "Days to save", 313, 14, 130, 56, 8
+        CONTROL         "", IDC_PRUNEDAYS, 74, 127, 31, 12, WC_SPINBUTTON,
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | SPBS_MASTER |
+                        SPBS_SERVANT | SPBS_JUSTDEFAULT | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Notes", IDB_HMS, 14, 110, 33, 8
+        ENTRYFIELD      "", IDE_REPLINE1, 52, 110, 120, 8, ES_MARGIN
+        ENTRYFIELD      "", IDE_REPLINE2, 52, 98, 120, 8, ES_MARGIN
+        GROUPBOX        "Options", IDC_TRANSFER, 11, 22, 138, 72
+        AUTOCHECKBOX    "Use excluded flags", IDC_REPEXCL, 20, 74, 116, 10
+        AUTOCHECKBOX    "Use hidden flags", IDC_REPHIDE, 20, 64, 118, 10,
+                        NOT WS_TABSTOP
+        AUTOCHECKBOX    "Add descriptions", IDC_REPDESC, 20, 54, 120, 10,
+                        NOT WS_TABSTOP
+        AUTOCHECKBOX    "Add comments", IDC_REPCOMM, 20, 44, 123, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Show details", IDC_REPDETAILS, 20, 34, 124, 10, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Show 0 times", IDC_REPZERO, 20, 24, 113, 10, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 5, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Default", IDP_DEFAULT, 60, 5, 40, 14, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_SETHELP, 110, 5, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_DATE LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_DATE, 115, 35, 190, 110, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 5, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Default", IDP_DEFAULT, 60, 5, 40, 14, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_SETHELP, 110, 5, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        LTEXT           "Use the OS/2 System Settings to", 620, 18, 67, 139,
+                        8
+        LTEXT           "change the display date format.", 621, 18, 58, 137,
+                        8
+    END
+END
+
+DLGTEMPLATE IDD_TIME LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_TIME, 99, 25, 190, 110, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        AUTORADIOBUTTON "Minutes (decimal)", IDB_MINUTES, 12, 87, 118, 10,
+                        BS_NOCURSORSELECT | WS_TABSTOP
+        AUTORADIOBUTTON "Hours (decimal)", IDB_HOURS, 12, 73, 106, 10,
+                        BS_NOCURSORSELECT
+        AUTORADIOBUTTON "HH MM SS", IDB_HMS, 12, 59, 87, 10,
+                        BS_NOCURSORSELECT
+        AUTORADIOBUTTON "HH MM", IDB_HM, 12, 45, 91, 10, BS_NOCURSORSELECT
+        PUSHBUTTON      "~Undo", DID_CANCEL, 10, 5, 40, 14, WS_GROUP
+        PUSHBUTTON      "~Default", IDP_DEFAULT, 60, 5, 40, 14, NOT
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_SETHELP, 110, 5, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        LTEXT           "Use the OS/2 System Settings to", 620, 13, 32, 137,
+                        8
+        LTEXT           "change the time separator.", 621, 12, 24, 136, 8
+    END
+END
+
+DLGTEMPLATE IDD_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", IDD_ABOUT, 97, 55, 181, 129, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        DEFPUSHBUTTON   "OK", DID_OK, 71, 6, 40, 14
+        CTEXT           "TIMETRAC", 317, 3, 86, 174, 8
+        CTEXT           "Version 1.99", 318, 3, 68, 174, 8
+        CTEXT           "Author: Ric Zapanta", 319, 3, 51, 174, 8
+        CTEXT           "(c) Copyright IBM Corp. 1993", 320, 3, 37, 174, 8
+        CTEXT           "PM Activity Time Tracker", 321, 3, 77, 174, 8
+        CTEXT           "All rights Reserved.", 322, 3, 28, 174, 8
+    END
+END
+
+DLGTEMPLATE IDD_REPORTLIST LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "TIMETRAC Report List", IDD_REPORTLIST, 120, 24, 154, 152,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LISTBOX         IDL_REPLIST, 7, 68, 72, 78, LS_EXTENDEDSEL |
+                        WS_GROUP
+        PUSHBUTTON      "~None", IDP_NONE, 97, 128, 40, 14, WS_GROUP
+        PUSHBUTTON      "~All", IDP_ALL, 97, 107, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "~Delete", IDP_DELETE, 97, 86, 40, 14, NOT
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Total", IDC_TOTAL, 98, 66, 41, 10, WS_GROUP
+        LTEXT           "Notes", IDB_HMS, 8, 53, 37, 8, NOT WS_GROUP
+        ENTRYFIELD      "", IDE_REPLINE1, 9, 41, 138, 8, ES_MARGIN
+        ENTRYFIELD      "", IDE_REPLINE2, 9, 29, 138, 8, ES_MARGIN
+        DEFPUSHBUTTON   "Ok", DID_OK, 10, 6, 40, 14, WS_GROUP
+        PUSHBUTTON      "Close", DID_CANCEL, 60, 6, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_REPLISTHELP, 109, 6, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_REPORT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "TIMETRAC Report", IDD_REPORT, 55, 10, 312, 170, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        MLE             "", IDE_REPORT, 4, 22, 302, 145, MLS_READONLY |
+                        MLS_HSCROLL | MLS_VSCROLL | MLS_IGNORETAB
+        DEFPUSHBUTTON   "Close", DID_OK, 58, 3, 40, 14, WS_GROUP
+        PUSHBUTTON      "Save", IDP_REPSAVE, 110, 3, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Print", IDP_PRINT, 162, 3, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", IDP_REPHELP, 214, 3, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END

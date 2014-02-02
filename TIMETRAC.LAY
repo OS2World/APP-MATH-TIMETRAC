@@ -1,0 +1,83 @@
+TIMETRAC.TT contains the daily reports, one record per day (a record has
+a CRLF sequence at the end).
+
+  Columns    Field                 Remarks
+  ---------- --------------------- ---------------------------------------
+  1-10       Date                  mm/dd/yyyy or yyyy-mm-dd or dd-mm-yyyy
+  11         Blank
+  12-18      Julian date           yyyyddd
+  19         Blank
+  20-26      Total time            Total time for the day, right justified
+  27         Blank
+  28         Units                 h = hours, m or . or : = minutes
+  29-49      Blank                 Fill (future use)
+  50-57 ...  Activity code         Capitalized, left justified
+  58    ...  Blank
+  59-61 ...  Count                 xxx, right justified, no leading 0
+  62    ...  Blank
+  63-69 ...  Time                  xxxx.xx, right justified, no leading 0
+@ 70    ...  Blank
+@ 71-79 ...  Parent                Capitalized, left justified (activity code)
+        ...  means repeated for each activity code
+
+---------------------------------------------------------------------------
+
+TIMETRAC.LST contains the activity code descriptions and the current day's
+tracked time.
+
+  Columns    Field                 Remarks
+  ---------- --------------------- ---------------------------------------
+  1          Control tag           * means a comment record so ignore
+                                   ! contains control information (see below)
+                                     normal (blank)
+                                   @ Exclude           \
+                                   # Hidden             } treat as normal
+                                   % Excluded & Hidden /
+
+  2-9        Activity code         Capitalized, left justified
+| 10         Quick key             Quick key value, Ctrl-# (0-9)
+  11-30      Activity description  Mixed case, left justified
+| 31         Lock flag             & for auto-lock or blank
+  32-37      Time                  xxx.xx, right justified, no leading 0
+  38         Blank
+  39-41      Count                 xxx, right justified, no leading 0
+| 42         Blank
+| 43-72      Comments              Mixed case, lest justified
+| 73         Blank
+| 74-121     Program               Capitalized, left justified
+| 122        Blank
+| 123-170    Parameters            Capitalized, left justified
+@ 171        Blank
+@ 172-191    Window focus
+@ 192        Blank
+@ 193-200    Parent                Capitalized, left justified (activity code)
+@ 201        Blank
+@ 202-204    Number of children    xxx, right justified, no leading 0
+
+The control line (the one with a ! in column one and is the first record
+of the file) is as follows:
+
+  1      !
+  2-11   Date (same formats as above)
+  13-19  Julian date
+  21-27  Total time, right justified, two decimal places
+  29     Units indicator, ie. h, m, ., or :
+
+---------------------------------------------------------------------------
+
+TIMETRAC.CM contains the daily comments, one record per day (a record has
+a CRLF sequence at the end).
+
+| Columns    Field                 Remarks
+| ---------- --------------------- ---------------------------------------
+| 1-10       Date                  mm/dd/yyyy or yyyy-mm-dd or dd-mm-yyyy
+| 11         Blank
+| 12-18      Julian date           yyyyddd
+| 19         Blank
+| 20-26      Total time            Total time for the day, right justified
+| 27         Blank
+| 28         Units                 h = hours, m or . or : = minutes
+| 29-49      Blank                 Fill (future use)
+| 50-79 ...  Comments              Mixed cased, left justified
+|
+|       ...  means repeated for each activity code
